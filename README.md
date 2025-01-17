@@ -38,9 +38,9 @@ For example:
 ```bash
     docker compose up -d
 ```
-- Once the container is up, run the following command to migrate database.
+- Once the container is up, run the following command to migrate database and get some random data.
 ```bash
-    docker compose exec smindler_app php artisan migrate
+    docker compose exec smindler_app php artisan migrate --seed
 ```
 - You should see some message like this in the terminal.
 ```
@@ -57,5 +57,137 @@ For example:
 
 #### How to use
 
-- Access to the interface of the app and see usage of the app at: http://localhost:8080/
+- Access to the interface of the app and see requirements of the task at: http://localhost:8080/
 - Access to database dashboard with phpmyadmin at: http://localhost:8888/
+
+#### Testing
+##### Automated test
+
+- Run command below for automated testing
+```bash
+    docker compose exec smindler_app php artisan test
+```
+
+##### Manually test
+
+You can make multiple HTTP requests using terminal or a third-party platform (example: [Postman](https://www.postman.com/))
+
+```
+    GET  |  http://localhost:8080/orders  |  Get all order records
+
+    RESPONSE SCHEMA
+    {
+        "success": boolean,
+        "message": string,
+        "data": [
+            {
+                "id": integer,
+                "first_name": string,
+                "last_name": string,
+                "address": string,
+                "created_at": datetime,
+                "updated_at": datetime,
+                "basket": [
+                    {
+                        "id": integer,
+                        "name": string,
+                        "type": string,
+                        "price": float,
+                        "order_id": integer,
+                        "created_at": datetime",
+                        "updated_at": datetime
+                    }
+                ]
+            }
+        ]
+    }
+```
+---
+```
+    GET  |  http://localhost:8080/orders/{id}  |  Get a single order by id
+
+    RESPONSE SCHEMA
+    {
+        "success": boolean,
+        "message": string,
+        "data": {
+            "id": integer,
+            "first_name": string,
+            "last_name": string,
+            "address": string,
+            "created_at": datetime,
+            "updated_at": datetime,
+            "basket": [
+                {
+                    "id": integer,
+                    "name": string,
+                    "type": string,
+                    "price": float,
+                    "order_id": integer,
+                    "created_at": datetime",
+                    "updated_at": datetime
+                }
+            ]
+        }
+    }
+```
+---
+```
+    POST  |  http://localhost:8080/orders  |  Create a new order
+
+    REQUEST SCHEMA
+    {
+        "first_name": string,
+        "last_name": string,
+        "address": string,
+        "basket": [
+            {
+                "name": string,
+                "type": string,
+                "price": float,
+            }
+        ]
+    }
+
+    RESPONSE SCHEMA
+    {
+        "success": boolean,
+        "message": string,
+        "data": [
+            {
+                "id": integer,
+                "first_name": string,
+                "last_name": string,
+                "address": string,
+                "created_at": datetime,
+                "updated_at": datetime,
+                "basket": [
+                    {
+                        "id": integer,
+                        "name": string,
+                        "type": string,
+                        "price": float,
+                        "order_id": integer,
+                        "created_at": datetime",
+                        "updated_at": datetime
+                    }
+                ]
+            }
+        ]
+    }
+```
+---
+```
+    DELETE  |  http://localhost:8080/orders/{id}  |  Delete an order by id
+```
+---
+
+
+###### HTTP Response Status Codes
+| Code  | Title                     | Description                              |
+| ----- | ------------------------- | ---------------------------------------- |
+| `200` | `OK`                      | When a request was successfully processed (e.g. when using `GET`, `PATCH`, `PUT` or `DELETE`). |
+| `201` | `Created`                 | Every time a record has been added to the database (e.g. when creating a new user or post). |
+| `400` | `Bad request`             | When the request could not be understood (e.g. fail to validate data). |
+| `404` | `Not found`               | When URL or entity is not found. |
+| `500` | `Internal server error`   | When an internal error has happened (e.g. when trying to add records in the database fails). |

@@ -9,7 +9,7 @@ class OrderRepository implements OrderRepositoryInterface
 {
     public function index(): Collection
     {
-        return Order::all();
+        return Order::with('basket')->get();
     }
 
     public function getById(int $id): ?Order
