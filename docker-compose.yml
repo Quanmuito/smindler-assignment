@@ -8,14 +8,13 @@ services:
                 uid: 1000
             context: .
             dockerfile: Dockerfile
-        image: smindler_app_image
         container_name: smindler_app
         restart: unless-stopped
         depends_on:
-            -   smindler_app_mysql
+            - smindler_app_mysql
         working_dir: /var/www
         volumes:
-            -   ./:/var/www
+            - ./:/var/www
         networks:
             - smindler_app_network
 
@@ -26,11 +25,11 @@ services:
         container_name: smindler_webserver_container
         restart: unless-stopped
         ports:
-            - "8080:80"
+            - 8080:80
         depends_on:
-            -   smindler_app
+            - smindler_app
         volumes:
-            -   ./:/var/www
+            - ./:/var/www
             - ./docker/nginx:/etc/nginx/conf.d/
         networks:
             - smindler_app_network
@@ -42,14 +41,14 @@ services:
         container_name: smindler_app_mysql_container
         restart: unless-stopped
         ports:
-            - ${DB_PORT}:${DB_PORT}
+            - ${DB_PORT}:3306
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
             MYSQL_PASSWORD: ${DB_PASSWORD}
         volumes:
-            -   smindler_mysql_data:/var/lib/mysql
+            - smindler_mysql_data:/var/lib/mysql
         networks:
             - smindler_app_network
 
@@ -59,14 +58,14 @@ services:
         container_name: smindler_phpmyadmin_container
         restart: unless-stopped
         ports:
-            -   "8888:80"
+            - 8888:80
         environment:
             PMA_HOST: smindler_app_mysql
             PMA_PORT: ${DB_PORT}
             PMA_USER: root
             PMA_PASSWORD: ${DB_ROOT_PASSWORD}
         depends_on:
-            -   smindler_app_mysql
+            - smindler_app_mysql
         networks:
             - smindler_app_network
 

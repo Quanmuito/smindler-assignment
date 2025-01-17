@@ -17,6 +17,23 @@ This is a job assignment from Smindler for hiring process.
 
 - Clone this repository or unzip the content to a folder.
 - Open a terminal at the folder.
+- Copy `.env.example` and rename to `.env`.
+- Fill environment variables for database:
+```
+    DB_PORT=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+    DB_ROOT_PASSWORD=
+```
+For example:
+```
+    DB_PORT=3306
+    DB_DATABASE=db123
+    DB_USERNAME=user123
+    DB_PASSWORD=password123
+    DB_ROOT_PASSWORD=rootpassword123
+```
 - Run command and wait for a while for Docker to build the container.
 ```bash
     docker compose up -d
@@ -40,5 +57,5 @@ This is a job assignment from Smindler for hiring process.
 
 #### How to use
 
-- Access to the interface of the app at: http://localhost:8080/
+- Access to the interface of the app and see usage of the app at: http://localhost:8080/
 - Access to database dashboard with phpmyadmin at: http://localhost:8888/
