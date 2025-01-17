@@ -1,0 +1,5 @@
+/vendor
+.editorconfig
+.env.example
+.phpunit.result.cache
+README.md
