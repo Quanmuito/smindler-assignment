@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Responses\ApiResponse;
 use App\Http\Requests\CreateOrderRequest;
+use App\Jobs\Subcribe;
 use App\Repositories\OrderRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -42,6 +43,12 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $order = $this->orderRepository->create($orderData, $basketData);
+            foreach ($order->basket as $basket) {
+                if ($basket->type === 'subscription') {
+                    dispatch(new Subcribe($basket->name, $basket->price));
+                }
+            }
+
             DB::commit();
             return ApiResponse::sendResponse($order, 201, 'Order Create Successful');
 
