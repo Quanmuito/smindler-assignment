@@ -42,7 +42,7 @@ For example:
 ```bash
     docker compose exec smindler_app php artisan migrate --seed
 ```
-- You should see some message like this in the terminal.
+- You should see some message sminilar to this in the terminal.
 ```
    INFO  Preparing database.
 
@@ -53,6 +53,11 @@ For example:
   0001_01_01_000000_create_users_table ........... 78.18ms DONE
   0001_01_01_000001_create_cache_table ........... 23.08ms DONE
   0001_01_01_000002_create_jobs_table ............ 58.89ms DONE
+
+   INFO  Seeding database.
+
+  Database\Seeders\OrderSeeder ........................ RUNNING
+  Database\Seeders\OrderSeeder ...................... 0 ms DONE
 ```
 
 #### How to use
@@ -94,7 +99,7 @@ You can make multiple HTTP requests using terminal or a third-party platform (ex
                         "type": string,
                         "price": float,
                         "order_id": integer,
-                        "created_at": datetime",
+                        "created_at": datetime,
                         "updated_at": datetime
                     }
                 ]
@@ -124,7 +129,7 @@ You can make multiple HTTP requests using terminal or a third-party platform (ex
                     "type": string,
                     "price": float,
                     "order_id": integer,
-                    "created_at": datetime",
+                    "created_at": datetime,
                     "updated_at": datetime
                 }
             ]
@@ -168,7 +173,7 @@ You can make multiple HTTP requests using terminal or a third-party platform (ex
                         "type": string,
                         "price": float,
                         "order_id": integer,
-                        "created_at": datetime",
+                        "created_at": datetime,
                         "updated_at": datetime
                     }
                 ]
@@ -183,11 +188,11 @@ You can make multiple HTTP requests using terminal or a third-party platform (ex
 ---
 
 
-###### HTTP Response Status Codes
+##### HTTP Response Status Codes
 | Code  | Title                     | Description                              |
 | ----- | ------------------------- | ---------------------------------------- |
 | `200` | `OK`                      | When a request was successfully processed (e.g. when using `GET`, `PATCH`, `PUT` or `DELETE`). |
 | `201` | `Created`                 | Every time a record has been added to the database (e.g. when creating a new user or post). |
 | `400` | `Bad request`             | When the request could not be understood (e.g. fail to validate data). |
-| `404` | `Not found`               | When URL or entity is not found. |
+| `404` | `Not found`               | When URL is not found. |
 | `500` | `Internal server error`   | When an internal error has happened (e.g. when trying to add records in the database fails). |
