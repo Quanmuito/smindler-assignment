@@ -20,27 +20,27 @@ This is a job assignment from Smindler for hiring process.
 - Copy `.env.example` and rename to `.env`.
 - Fill environment variables for database:
 ```
-    DB_PORT=
-    DB_DATABASE=
-    DB_USERNAME=
-    DB_PASSWORD=
-    DB_ROOT_PASSWORD=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+DB_ROOT_PASSWORD=
 ```
 For example:
 ```
-    DB_PORT=3306
-    DB_DATABASE=db123
-    DB_USERNAME=user123
-    DB_PASSWORD=password123
-    DB_ROOT_PASSWORD=rootpassword123
+DB_PORT=3306
+DB_DATABASE=db123
+DB_USERNAME=user123
+DB_PASSWORD=password123
+DB_ROOT_PASSWORD=rootpassword123
 ```
 - Run command and wait for a while for Docker to build the container.
 ```bash
-    docker compose up -d
+docker compose up -d
 ```
 - Once the container is up, run the following command to migrate database and get some random data.
 ```bash
-    docker compose exec smindler_app php artisan migrate --seed
+docker compose exec smindler_app php artisan migrate --seed
 ```
 - You should see some message sminilar to this in the terminal.
 ```
@@ -70,7 +70,7 @@ For example:
 
 - Run command below for automated testing
 ```bash
-    docker compose exec smindler_app php artisan test
+docker compose exec smindler_app php artisan test
 ```
 
 ##### Manually test
@@ -78,44 +78,14 @@ For example:
 You can make multiple HTTP requests using terminal or a third-party platform (example: [Postman](https://www.postman.com/))
 
 ```
-    GET  |  http://localhost:8080/orders  |  Get all order records
+GET  |  http://localhost:8080/orders  |  Get all order records
 
-    RESPONSE SCHEMA
-    {
-        "success": boolean,
-        "message": string,
-        "data": [
-            {
-                "id": integer,
-                "first_name": string,
-                "last_name": string,
-                "address": string,
-                "created_at": datetime,
-                "updated_at": datetime,
-                "basket": [
-                    {
-                        "id": integer,
-                        "name": string,
-                        "type": string,
-                        "price": float,
-                        "order_id": integer,
-                        "created_at": datetime,
-                        "updated_at": datetime
-                    }
-                ]
-            }
-        ]
-    }
-```
----
-```
-    GET  |  http://localhost:8080/orders/{id}  |  Get a single order by id
-
-    RESPONSE SCHEMA
-    {
-        "success": boolean,
-        "message": string,
-        "data": {
+RESPONSE SCHEMA
+{
+    "success": boolean,
+    "message": string,
+    "data": [
+        {
             "id": integer,
             "first_name": string,
             "last_name": string,
@@ -134,56 +104,86 @@ You can make multiple HTTP requests using terminal or a third-party platform (ex
                 }
             ]
         }
-    }
+    ]
+}
 ```
 ---
 ```
-    POST  |  http://localhost:8080/orders  |  Create a new order
+GET  |  http://localhost:8080/orders/{id}  |  Get a single order by id
 
-    REQUEST SCHEMA
-    {
+RESPONSE SCHEMA
+{
+    "success": boolean,
+    "message": string,
+    "data": {
+        "id": integer,
         "first_name": string,
         "last_name": string,
         "address": string,
+        "created_at": datetime,
+        "updated_at": datetime,
         "basket": [
             {
+                "id": integer,
                 "name": string,
                 "type": string,
                 "price": float,
-            }
-        ]
-    }
-
-    RESPONSE SCHEMA
-    {
-        "success": boolean,
-        "message": string,
-        "data": [
-            {
-                "id": integer,
-                "first_name": string,
-                "last_name": string,
-                "address": string,
+                "order_id": integer,
                 "created_at": datetime,
-                "updated_at": datetime,
-                "basket": [
-                    {
-                        "id": integer,
-                        "name": string,
-                        "type": string,
-                        "price": float,
-                        "order_id": integer,
-                        "created_at": datetime,
-                        "updated_at": datetime
-                    }
-                ]
+                "updated_at": datetime
             }
         ]
     }
+}
 ```
 ---
 ```
-    DELETE  |  http://localhost:8080/orders/{id}  |  Delete an order by id
+POST  |  http://localhost:8080/orders  |  Create a new order
+
+REQUEST SCHEMA
+{
+    "first_name": string,
+    "last_name": string,
+    "address": string,
+    "basket": [
+        {
+            "name": string,
+            "type": string,
+            "price": float,
+        }
+    ]
+}
+
+RESPONSE SCHEMA
+{
+    "success": boolean,
+    "message": string,
+    "data": [
+        {
+            "id": integer,
+            "first_name": string,
+            "last_name": string,
+            "address": string,
+            "created_at": datetime,
+            "updated_at": datetime,
+            "basket": [
+                {
+                    "id": integer,
+                    "name": string,
+                    "type": string,
+                    "price": float,
+                    "order_id": integer,
+                    "created_at": datetime,
+                    "updated_at": datetime
+                }
+            ]
+        }
+    ]
+}
+```
+---
+```
+DELETE  |  http://localhost:8080/orders/{id}  |  Delete an order by id
 ```
 ---
 
