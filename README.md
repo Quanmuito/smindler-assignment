@@ -82,7 +82,7 @@ docker compose exec smindler_app php artisan test
 You can make multiple HTTP requests using terminal or a third-party platform (example: [Postman](https://www.postman.com/))
 
 ```
-GET  |  http://localhost:8080/orders  |  Get all order records
+GET  |  http://localhost:8080/api/orders  |  Get all order records
 
 RESPONSE SCHEMA
 {
@@ -113,7 +113,7 @@ RESPONSE SCHEMA
 ```
 ---
 ```
-GET  |  http://localhost:8080/orders/{id}  |  Get a single order by id
+GET  |  http://localhost:8080/api/orders/{id}  |  Get a single order by id
 
 RESPONSE SCHEMA
 {
@@ -142,7 +142,7 @@ RESPONSE SCHEMA
 ```
 ---
 ```
-POST  |  http://localhost:8080/orders  |  Create a new order
+POST  |  http://localhost:8080/api/orders  |  Create a new order
 
 REQUEST SCHEMA
 {
@@ -187,7 +187,7 @@ RESPONSE SCHEMA
 ```
 ---
 ```
-DELETE  |  http://localhost:8080/orders/{id}  |  Delete an order by id
+DELETE  |  http://localhost:8080/api/orders/{id}  |  Delete an order by id
 ```
 ---
 
