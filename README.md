@@ -34,15 +34,19 @@ DB_USERNAME=user123
 DB_PASSWORD=password123
 DB_ROOT_PASSWORD=rootpassword123
 ```
-- Run command and wait for a while for Docker to build the container.
+- Run command and wait for a while for Docker to build the container. NOTE: This step can take a few minutes.
 ```bash
 docker compose up -d
 ```
-- Once the container is up, run the following command to migrate database and get some random data.
+- Once all services are up, run the following command to generate APP_KEY
+```bash
+docker compose exec smindler_app php artisan key:generate
+```
+- Run the following command to migrate database and get some random data for testing purpose.
 ```bash
 docker compose exec smindler_app php artisan migrate --seed
 ```
-- You should see some message sminilar to this in the terminal.
+- You should see some message similar to this in the terminal.
 ```
    INFO  Preparing database.
 
