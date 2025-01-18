@@ -1,42 +1,42 @@
 services:
     # PHP Service container
-    smindler_app:
+    smindle_app:
         platform: linux/amd64
         build:
             args:
-                user: smindler_user
+                user: smindle_user
                 uid: 1000
             context: .
             dockerfile: Dockerfile
-        container_name: smindler_app
+        container_name: smindle_app
         restart: unless-stopped
         depends_on:
-            - smindler_app_mysql
+            - smindle_app_mysql
         working_dir: /var/www
         networks:
-            - smindler_app_network
+            - smindle_app_network
 
     #nginx service
-    smindler_webserver:
+    smindle_webserver:
         platform: linux/amd64
         image: nginx:alpine
-        container_name: smindler_webserver_container
+        container_name: smindle_webserver_container
         restart: unless-stopped
         ports:
             - 8080:80
         depends_on:
-            - smindler_app
+            - smindle_app
         volumes:
             - ./:/var/www
             - ./docker/nginx:/etc/nginx/conf.d/
         networks:
-            - smindler_app_network
+            - smindle_app_network
 
     #mysql service
-    smindler_app_mysql:
+    smindle_app_mysql:
         platform: linux/amd64
         image: mysql:5.7.22
-        container_name: smindler_app_mysql_container
+        container_name: smindle_app_mysql_container
         restart: unless-stopped
         ports:
             - ${DB_PORT}:3306
@@ -46,30 +46,30 @@ services:
             MYSQL_USER: ${DB_USERNAME}
             MYSQL_PASSWORD: ${DB_PASSWORD}
         volumes:
-            - smindler_mysql_data:/var/lib/mysql
+            - smindle_mysql_data:/var/lib/mysql
         networks:
-            - smindler_app_network
+            - smindle_app_network
 
     #phpmyadmin service
-    smindler_phpmyadmin:
+    smindle_phpmyadmin:
         image: phpmyadmin:5.2.1-apache
-        container_name: smindler_phpmyadmin_container
+        container_name: smindle_phpmyadmin_container
         restart: unless-stopped
         ports:
             - 8888:80
         environment:
-            PMA_HOST: smindler_app_mysql
+            PMA_HOST: smindle_app_mysql
             PMA_PORT: ${DB_PORT}
             PMA_USER: root
             PMA_PASSWORD: ${DB_ROOT_PASSWORD}
         depends_on:
-            - smindler_app_mysql
+            - smindle_app_mysql
         networks:
-            - smindler_app_network
+            - smindle_app_network
 
 volumes:
-    smindler_mysql_data:
+    smindle_mysql_data:
         driver: local
 networks:
-    smindler_app_network:
+    smindle_app_network:
         driver: bridge

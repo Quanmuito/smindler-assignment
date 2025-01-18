@@ -4,7 +4,7 @@ Feel free to visit my website at https://www.quanmuito.com/ to know more about m
 
 ## About the project
 
-This is a job assignment from Smindler for hiring process.
+This is a job assignment from Smindle for hiring process.
 
 ## Set up project
 
@@ -40,11 +40,11 @@ docker compose up -d
 ```
 - Once all services are up, run the following command to generate APP_KEY
 ```bash
-docker compose exec smindler_app php artisan key:generate
+docker compose exec smindle_app php artisan key:generate
 ```
 - Run the following command to migrate database and get some random data for testing purpose.
 ```bash
-docker compose exec smindler_app php artisan migrate --seed
+docker compose exec smindle_app php artisan migrate --seed
 ```
 - You should see some message similar to this in the terminal.
 ```
@@ -74,7 +74,7 @@ docker compose exec smindler_app php artisan migrate --seed
 
 - Run command below for automated testing
 ```bash
-docker compose exec smindler_app php artisan test
+docker compose exec smindle_app php artisan test
 ```
 
 ##### Manually test
